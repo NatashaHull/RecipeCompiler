@@ -1,0 +1,17 @@
+# == Schema Information
+#
+# Table name: votes
+#
+#  id         :integer          not null, primary key
+#  topid_id   :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  topid_id: 1
+
+two:
+  topid_id: 1

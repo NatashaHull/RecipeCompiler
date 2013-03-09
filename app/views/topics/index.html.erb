@@ -1,19 +1,19 @@
 <h1>Awesome Recipes</h1>
 
 <table>
-  <tr style="padding:1px; border-bottom:1px solid black;">
-    <th style="padding:1px;">Title</th>
-    <th style="padding:1px; border-left:1px solid black" colspan="3" align="left">Description</th>
+  <tr>
+    <th><em>Recipe</em></th>
+    <th><em>Popularity</em></th>
     <th></th>
     <th></th>
   </tr>
 
 <% @topics.each do |topic| %>
   <tr>
-    <td><%= topic.title %></td>
-    <td style="padding:1px; border-left:1px solid black"><%= topic.description %></td>
-    <td style="padding:1px; border-left:1px solid black"><%= link_to 'Show', topic %></td>
-    <td style="padding:1px; border-left:1px solid black"><%= link_to 'Delete', topic, confirm: 'Once you delete this, it will be gone forever.  Can you live with that?', method: :delete %></td>
+    <td><%= link_to topic.title, topic %></td>
+    <td><%= pluralize(topic.votes.length,"vote") %></td>
+    <td><%= button_to '+1', votes_path(topic_id: topic.id), method: :post %></td>
+    <td><%= link_to 'Delete', topic, confirm: "Once you delete this, it will be gone forever.  Can you live with that?", method: :delete %></td>
   </tr>
 <% end %>
 </table>
