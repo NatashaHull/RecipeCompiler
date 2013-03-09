@@ -3,6 +3,7 @@
 <table>
   <tr style="padding:1px; border-bottom:1px solid black">
     <th style="padding:1px"><em>Recipe</em></th>
+    <th style="padding:1px; border-left:1px solid black;"><em>Creator</em></th>
     <th style="padding:1px; border-left:1px solid black;"><em>Popularity</em></th>
     <th></th>
     <th></th>
@@ -11,9 +12,17 @@
 <% @topics.each do |topic| %>
   <tr>
     <td style="padding:1px;"><%= link_to topic.title, topic %></td>
+    <td style="padding:1px; border-left:1px solid black;"><%= topic.username %></td>
     <td style="padding:1px; border-left:1px solid black;"><%= pluralize(topic.votes.length,"vote") %></td>
-    <td><%= button_to '+1', votes_path(topic_id: topic.id), method: :post %></td>
-    <td><%= link_to 'Delete', topic, confirm: "Once you delete this, it will be gone forever.  Can you live with that?", method: :delete %></td>
+    <% if session[:user_id] %>
+      <% if topic.votes_by_user_id(session[:user_id]).empty? %>
+        <td><%= button_to '+1', votes_path(topic_id: topic.id), method: :post %></td>
+      <% else %>
+        <td><%= button_to '-1', subtract_votes_path(topic_id: topic.id), method: :post %></td>
+      <% end %>
+    <% end %>
+    <% delete_msg = topic.logged_in_as_author(session[:user_id]) ? 'Once you delete this, it will be gone forever.  Can you live with that?' : 'Try to delete this!' %>
+    <td><%= link_to 'Delete', topic, confirm: delete_msg, method: :delete %></td>
   </tr>
 <% end %>
 </table>

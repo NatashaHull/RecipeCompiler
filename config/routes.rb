@@ -1,9 +1,14 @@
 RecipeCompiler::Application.routes.draw do
+  resources :users
+
   resources :votes
 
   resources :topics
 
   root :to => 'topics#index'
+  
+  post "login" => 'users#login'
+  post "logout" => 'users#logout'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

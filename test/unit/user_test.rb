@@ -1,17 +1,16 @@
 # == Schema Information
 #
-# Table name: votes
+# Table name: users
 #
 #  id         :integer          not null, primary key
+#  name       :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  topic_id   :integer
-#  user_id    :integer
 #
 
 require 'test_helper'
 
-class VoteTest < ActiveSupport::TestCase
+class UserTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

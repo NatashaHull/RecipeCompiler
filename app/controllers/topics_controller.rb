@@ -1,8 +1,11 @@
 class TopicsController < ApplicationController
+  before_filter :logged_in_as_author, :only => [:edit, :destroy]
+
   # GET /topics
   # GET /topics.json
   def index
     @topics = Topic.all
+    @ip = request.remote_ip
 
     respond_to do |format|
       format.html # index.html.erb
@@ -41,6 +44,9 @@ class TopicsController < ApplicationController
   # POST /topics.json
   def create
     @topic = Topic.new(params[:topic])
+    if session[:user_id]
+      @topic.user = User.find(session[:user_id])
+    end
 
     respond_to do |format|
       if @topic.save
@@ -78,6 +84,13 @@ class TopicsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to topics_url }
       format.json { head :no_content }
+    end
+  end
+
+  def logged_in_as_author
+    topic = Topic.find(params[:id])
+    unless topic.logged_in_as_author(session[:user_id])
+      redirect_to(topics_path)
     end
   end
 end
