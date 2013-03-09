@@ -1,7 +1,11 @@
 RecipeCompiler::Application.routes.draw do
   resources :users
 
-  resources :votes
+  resources :votes, :only => [:create] do
+    collection do
+      post 'subtract'
+    end
+  end
 
   resources :topics
 
