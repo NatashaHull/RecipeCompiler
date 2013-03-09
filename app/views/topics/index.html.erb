@@ -1,17 +1,17 @@
 <h1>Awesome Recipes</h1>
 
 <table>
-  <tr>
-    <th><em>Recipe</em></th>
-    <th><em>Popularity</em></th>
+  <tr style="padding:1px; border-bottom:1px solid black">
+    <th style="padding:1px"><em>Recipe</em></th>
+    <th style="padding:1px; border-left:1px solid black;"><em>Popularity</em></th>
     <th></th>
     <th></th>
   </tr>
 
 <% @topics.each do |topic| %>
   <tr>
-    <td><%= link_to topic.title, topic %></td>
-    <td><%= pluralize(topic.votes.length,"vote") %></td>
+    <td style="padding:1px;"><%= link_to topic.title, topic %></td>
+    <td style="padding:1px; border-left:1px solid black;"><%= pluralize(topic.votes.length,"vote") %></td>
     <td><%= button_to '+1', votes_path(topic_id: topic.id), method: :post %></td>
     <td><%= link_to 'Delete', topic, confirm: "Once you delete this, it will be gone forever.  Can you live with that?", method: :delete %></td>
   </tr>
